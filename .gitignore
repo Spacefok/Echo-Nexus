@@ -1,0 +1,49 @@
+# Build directories
+/build/
+/bin/
+/lib/
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+Makefile
+install_manifest.txt
+
+# Object files and compiled libraries
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.libs
+*.dll
+*.so
+*.dylib
+\# Precompiled headers
+*.gch
+*.pch
+
+# Executables
+*.exe
+a.out
+
+# Logs, dumps, and coverage
+*.log
+*.out
+*.err
+*.gcda
+*.gcno
+core
+
+# IDE and editor files
+/.vscode/
+/.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*~
+*.swp

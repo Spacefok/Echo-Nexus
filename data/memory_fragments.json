@@ -1,0 +1,5 @@
+[
+  { "id": "prologue", "content": "You awaken in a dark lab, memories of your past life flickering..." },
+  { "id": "first_encounter", "content": "A rogue drone attacks you, its malfunctioning AI hinting at a larger conspiracy..." },
+  { "id": "secret_log", "content": "Encrypted log entry: Project Echo Nexus - Phase 2 Initiated." }
+]
