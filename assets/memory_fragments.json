@@ -1,0 +1,11 @@
+[
+  { "id": "prologue", "content": "You awaken in a dark lab, memories of your past life flickering..." },
+  { "id": "first_encounter", "content": "A rogue drone attacks you, its malfunctioning AI hinting at a larger conspiracy..." },
+  { "id": "secret_log", "content": "Encrypted log entry: Project Echo Nexus - Phase 2 Initiated." },
+  { "id": "lab_escape", "content": "You recall fleeing the experiment chambers, alarms blaring..." },
+  { "id": "mentor_voice", "content": "A distant memory of your mentor's warning echoes in your mind..." },
+  { "id": "found_keycard", "content": "The worn keycard bears the insignia of the Nexus core." },
+  { "id": "cube_whisper", "content": "A pulsing cube of darkness haunts your thoughts, promising power." },
+  { "id": "cube_awakens", "content": "The Cube of Shadows stirs as you draw near its chamber..." },
+  { "id": "cube_destroyed", "content": "With a final burst of light, the Cube of Shadows shatters, and peace returns." }
+]

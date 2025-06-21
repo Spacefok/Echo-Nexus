@@ -17,7 +17,7 @@
 int main() {
     // Load configuration
     ConfigLoader configLoader;
-    auto gameConfig = configLoader.LoadConfig("config/game_config.json");
+    auto gameConfig = configLoader.LoadConfig("assets/game_config.json");
 
     // Setup service locator
     ServiceLocator serviceLocator;

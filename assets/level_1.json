@@ -1,0 +1,11 @@
+{
+  "factions": [
+    {"name": "TestSubjects"},
+    {"name": "SecurityBots"}
+  ],
+  "drones": [
+    {"id": 1, "type": "scout", "faction": "SecurityBots"},
+    {"id": 2, "type": "scout", "faction": "SecurityBots"},
+    {"id": 3, "type": "guardian", "faction": "SecurityBots"}
+  ]
+}

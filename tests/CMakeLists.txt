@@ -28,5 +28,5 @@ target_link_libraries(SaveManagerTest PRIVATE
     saveLib
     nlohmann_json::nlohmann_json
 )
-target_compile_definitions(SaveManagerTest PRIVATE DATA_DIR="${CMAKE_SOURCE_DIR}/data")
+target_compile_definitions(SaveManagerTest PRIVATE DATA_DIR="${CMAKE_SOURCE_DIR}/assets")
 add_test(NAME SaveManagerTest COMMAND SaveManagerTest)
