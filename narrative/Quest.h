@@ -6,11 +6,11 @@
 class Quest {
 public:
     explicit Quest(const std::string& questId);
-    std::string GetId() const;
-    bool IsCompleted() const;
-    void Complete();
+    std::string getId() const;
+    bool isCompleted() const;
+    void complete();
 
 private:
-    std::string QuestId_;
-    bool Completed_;
+    std::string questId_;
+    bool completed_;
 };

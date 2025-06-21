@@ -11,8 +11,8 @@ public:
     explicit DroneBehavior(ServiceLocator& locator);
 
     // Execute behavior for a given drone each tick
-    void Execute(std::shared_ptr<Drone> drone, float deltaTime);
+    void execute(std::shared_ptr<Drone> drone, float deltaTime);
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
 };

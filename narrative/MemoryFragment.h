@@ -9,19 +9,19 @@ public:
     MemoryFragment(const std::string& id, const std::string& content);
 
     // Returns the fragment's identifier
-    const std::string& GetId() const;
+    const std::string& getId() const;
 
     // Returns the text content of the fragment
-    const std::string& GetContent() const;
+    const std::string& getContent() const;
 
     // Has this fragment been unlocked (revealed) yet?
-    bool IsUnlocked() const;
+    bool isUnlocked() const;
 
     // Mark this fragment as unlocked
-    void Unlock();
+    void unlock();
 
 private:
-    std::string Id_;        // Unique key for lookup
-    std::string Content_;   // The narrative text
-    bool Unlocked_;         // Reveal state
+    std::string id_;        // Unique key for lookup
+    std::string content_;   // The narrative text
+    bool unlocked_;         // Reveal state
 };

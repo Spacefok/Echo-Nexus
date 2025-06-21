@@ -1,12 +1,12 @@
 #pragma once
-#include "ServiceLocator.h"
+#include "core/ServiceLocator.h"
 
 // Main game loop
 class GameLoop {
 public:
     explicit GameLoop(ServiceLocator& locator);
-    void Run();
+    void run();
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
 };

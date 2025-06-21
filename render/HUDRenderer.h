@@ -6,8 +6,8 @@ class ServiceLocator;
 class HUDRenderer {
 public:
     explicit HUDRenderer(ServiceLocator& locator);
-    void RenderHud();
+    void renderHud();
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
 };

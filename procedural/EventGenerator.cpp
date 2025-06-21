@@ -2,12 +2,12 @@
 #include "core/EventSystem.h"
 
 EventGenerator::EventGenerator(ServiceLocator& locator)
-    : Locator_(locator), Timer_(0.0f) {}
+    : locator_(locator), timer_(0.0f) {}
 
-void EventGenerator::Update(float deltaTime) {
-    Timer_ += deltaTime;
-    if (Timer_ >= 10.0f) {
-        Locator_.Get<EventSystem>()->Emit("PeriodicEvent");
-        Timer_ = 0.0f;
+void EventGenerator::update(float deltaTime) {
+    timer_ += deltaTime;
+    if (timer_ >= 10.0f) {
+        locator_.get<EventSystem>()->emit("PeriodicEvent");
+        timer_ = 0.0f;
     }
 }

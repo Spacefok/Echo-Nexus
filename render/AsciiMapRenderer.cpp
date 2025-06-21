@@ -5,14 +5,14 @@
 #include <string>
 
 AsciiMapRenderer::AsciiMapRenderer(ServiceLocator& locator)
-    : Locator_(locator), MapWidth_(80), MapHeight_(24) {}
+    : locator_(locator), mapWidth_(80), mapHeight_(24) {}
 
-void AsciiMapRenderer::RenderMap(const std::vector<std::shared_ptr<Entity>>& entities) {
-    std::vector<std::string> grid(MapHeight_, std::string(MapWidth_, '.'));
+void AsciiMapRenderer::renderMap(const std::vector<std::shared_ptr<Entity>>& entities) {
+    std::vector<std::string> grid(mapHeight_, std::string(mapWidth_, '.'));
     for (auto& e : entities) {
-        auto id = e->GetId();
-        int x = static_cast<int>(id % MapWidth_);
-        int y = static_cast<int>((id / MapWidth_) % MapHeight_);
+        auto id = e->getId();
+        int x = static_cast<int>(id % mapWidth_);
+        int y = static_cast<int>((id / mapWidth_) % mapHeight_);
         char symbol = (id == 1 ? '@' : 'D');
         grid[y][x] = symbol;
     }

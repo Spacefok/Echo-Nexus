@@ -10,46 +10,76 @@
 #include <stdexcept>
 
 SaveManager::SaveManager(const std::string& filePath, ServiceLocator& locator)
-    : FilePath_(filePath), Locator_(locator) {}
+    : filePath_(filePath), locator_(locator) {}
 
+<<<<<<< Updated upstream
 void SaveManager::Load() {
     std::ifstream input(FilePath_);
+=======
+void SaveManager::setCurrentLevel(int level) {
+    state_.currentLevel = level;
+}
+
+int SaveManager::getCurrentLevel() const {
+    return state_.currentLevel;
+}
+
+void SaveManager::load() {
+    std::ifstream input(filePath_);
+>>>>>>> Stashed changes
     if (!input.good()) return;  // no save yet
 
     nlohmann::json json;
     input >> json;
 
+<<<<<<< Updated upstream
     State_.CurrentLevel = json.value("currentLevel", 1);
     State_.PlayerHealth = json.value("playerHealth", Locator_.Get<Player>()->GetHealth());
     State_.PlayerVirus = json.value("playerVirus", Locator_.Get<Player>()->GetVirusLevel());
+=======
+    state_.currentLevel = json.value("currentLevel", 1);
+    auto player = locator_.get<Player>();
+    state_.playerHealth = json.value("playerHealth", player->getHealth());
+    state_.playerVirus = json.value("playerVirus", player->getVirusLevel());
+
+    int healthDiff = state_.playerHealth - player->getHealth();
+    if (healthDiff > 0) {
+        player->heal(healthDiff);
+    } else if (healthDiff < 0) {
+        player->applyDamage(-healthDiff);
+    }
+    float virusDiff = state_.playerVirus - player->getVirusLevel();
+    player->addVirus(virusDiff);
+
+>>>>>>> Stashed changes
     for (auto& id : json["unlockedFragments"]) {
-        State_.UnlockedFragments.insert(id.get<std::string>());
+        state_.unlockedFragments.insert(id.get<std::string>());
     }
 
     // Restore narrative fragments
-    auto narrative = Locator_.Get<NarrativeManager>();
-    for (auto& id : State_.UnlockedFragments) {
-        narrative->UnlockFragment(id);
+    auto narrative = locator_.get<NarrativeManager>();
+    for (auto& id : state_.unlockedFragments) {
+        narrative->unlockFragment(id);
     }
 }
 
-void SaveManager::Save() const {
+void SaveManager::save() const {
     nlohmann::json json;
-    json["currentLevel"] = State_.CurrentLevel;
-    auto player = Locator_.Get<Player>();
-    json["playerHealth"] = player->GetHealth();
-    json["playerVirus"] = player->GetVirusLevel();
+    json["currentLevel"] = state_.currentLevel;
+    auto player = locator_.get<Player>();
+    json["playerHealth"] = player->getHealth();
+    json["playerVirus"] = player->getVirusLevel();
 
     // Save unlocked narrative fragments
-    auto fragments = Locator_.Get<NarrativeManager>()->GetUnlockedFragments();
+    auto fragments = locator_.get<NarrativeManager>()->getUnlockedFragments();
     std::vector<std::string> ids;
     for (const auto& fragPtr : fragments) {
-        ids.push_back(fragPtr->GetId());
+        ids.push_back(fragPtr->getId());
     }
 
-    std::ofstream output(FilePath_);
+    std::ofstream output(filePath_);
     if (!output.is_open()) {
-        throw std::runtime_error("Cannot open save file: " + FilePath_);
+        throw std::runtime_error("Cannot open save file: " + filePath_);
     }
     output << json.dump(4);
 }

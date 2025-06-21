@@ -11,11 +11,11 @@ public:
     virtual ~Entity() = default;
 
     // Уникальный идентификатор сущности
-    std::size_t GetId() const;
+    std::size_t getId() const;
 
     // Обновление сущности (вызывается каждый тик)
-    virtual void Update(float deltaTime) = 0;
+    virtual void update(float deltaTime) = 0;
 
 private:
-    std::size_t Id_;  // Хранит ID
+    std::size_t id_;
 };

@@ -8,14 +8,14 @@
 class CombatLogScreen : public UIScreen {
 public:
     CombatLogScreen();
-    void Show() override;
-    void Hide() override;
-    std::string GetName() const override;
+    void show() override;
+    void hide() override;
+    std::string getName() const override;
 
     // Add a new log entry
-    void AddEntry(const std::string& entry);
+    void addEntry(const std::string& entry);
 
 private:
-    bool Visible_;
-    std::vector<std::string> Entries_;
+    bool visible_;
+    std::vector<std::string> entries_;
 };

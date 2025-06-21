@@ -7,18 +7,42 @@ NarrativeManager::NarrativeManager(ServiceLocator& locator)
     : Locator_(locator)
 {
     // Подпишемся на событие первого столкновения с дроном
-    Locator_.Get<EventSystem>()->Subscribe(
+    Locator_.get<EventSystem>()->subscribe(
         "EncounteredDrone",
-        [this]() { UnlockFragment("first_encounter"); }
+        [this]() { unlockFragment("first_encounter"); }
     );
 }
 
+<<<<<<< Updated upstream
 void NarrativeManager::StartStory(const std::string& startPoint) {
     UnlockFragment(startPoint);  // разблокировать пролог
+=======
+void NarrativeManager::addQuest(const std::string& id) {
+    Quests_[id] = std::make_shared<Quest>(id);
 }
 
-void NarrativeManager::LoadFragments(const std::string& fileName) {
-    auto jsonData = Locator_.Get<DataManager>()->LoadData(fileName);
+void NarrativeManager::completeQuest(const std::string& id) {
+    auto it = Quests_.find(id);
+    if (it != Quests_.end()) {
+        it->second->complete();
+    }
+}
+
+std::vector<std::shared_ptr<Quest>> NarrativeManager::getQuests() const {
+    std::vector<std::shared_ptr<Quest>> quests;
+    for (auto& pair : Quests_) {
+        quests.push_back(pair.second);
+    }
+    return quests;
+}
+
+void NarrativeManager::startStory(const std::string& startPoint) {
+    unlockFragment(startPoint);
+>>>>>>> Stashed changes
+}
+
+void NarrativeManager::loadFragments(const std::string& fileName) {
+    auto jsonData = Locator_.get<DataManager>()->loadData(fileName);
     for (auto& item : jsonData) {
         std::string id = item.at("id").get<std::string>();
         std::string content = item.at("content").get<std::string>();
@@ -26,21 +50,21 @@ void NarrativeManager::LoadFragments(const std::string& fileName) {
     }
 }
 
-void NarrativeManager::Update(float /*deltaTime*/) {
+void NarrativeManager::update(float /*deltaTime*/) {
     // Placeholder: check game events to unlock fragments
 }
 
-void NarrativeManager::UnlockFragment(const std::string& id) {
+void NarrativeManager::unlockFragment(const std::string& id) {
     auto it = Fragments_.find(id);
     if (it != Fragments_.end()) {
-        it->second->Unlock();
+        it->second->unlock();
     }
 }
 
-std::vector<std::shared_ptr<MemoryFragment>> NarrativeManager::GetUnlockedFragments() const {
+std::vector<std::shared_ptr<MemoryFragment>> NarrativeManager::getUnlockedFragments() const {
     std::vector<std::shared_ptr<MemoryFragment>> unlocked;
     for (auto& pair : Fragments_) {
-        if (pair.second->IsUnlocked()) {
+        if (pair.second->isUnlocked()) {
             unlocked.push_back(pair.second);
         }
     }

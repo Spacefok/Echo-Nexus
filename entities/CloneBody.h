@@ -7,17 +7,17 @@ public:
     CloneBody(int maxHealth, float virusRate, float virusCarryover);
 
     // Health accessors
-    int GetHealth() const;
-    void SetHealth(int health);
-    int GetMaxHealth() const;
+    int getHealth() const;
+    void setHealth(int health);
+    int getMaxHealth() const;
 
     // Virus properties
-    float GetVirusRate() const;
-    float GetVirusCarryover() const;
+    float getVirusRate() const;
+    float getVirusCarryover() const;
 
 private:
-    int Health_;            // Current health
-    int MaxHealth_;         // Maximum health
-    float VirusRate_;       // Virus growth rate per second
-    float VirusCarryover_;  // Virus amount carried when reborn
+    int health_;
+    int maxHealth_;
+    float virusRate_;
+    float virusCarryover_;
 };

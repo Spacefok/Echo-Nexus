@@ -10,8 +10,8 @@ public:
     explicit DataManager(const std::string& dataPath);
 
     // Load arbitrary JSON data by filename (without extension)
-    nlohmann::json LoadData(const std::string& fileName) const;
+    nlohmann::json loadData(const std::string& fileName) const;
 
 private:
-    std::string DataPath_;  // Base directory for data files
+    std::string dataPath_;
 };

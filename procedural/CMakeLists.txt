@@ -17,4 +17,10 @@ target_link_libraries(proceduralLib PUBLIC
     entitiesLib
     dataLib
     coreLib
+<<<<<<< Updated upstream
 )
+=======
+    saveLib
+    narrativeLib
+)
+>>>>>>> Stashed changes

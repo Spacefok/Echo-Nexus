@@ -9,11 +9,18 @@ public:
     explicit StoryEventRunner(ServiceLocator& locator);
 
     // Start listening to events and trigger story
-    void Initialize();
+    void initialize();
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
 
     // Handle a periodic event
+<<<<<<< Updated upstream
     void OnPeriodicEvent();
 };
+=======
+    void onPeriodicEvent();
+
+    void onCubeDefeated();
+};
+>>>>>>> Stashed changes

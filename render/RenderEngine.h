@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "ServiceLocator.h"
+#include "core/ServiceLocator.h"
 
 class AsciiMapRenderer;
 class HUDRenderer;
@@ -10,10 +10,10 @@ class HUDRenderer;
 class RenderEngine {
 public:
     explicit RenderEngine(ServiceLocator& locator);
-    void Render();  // Render a full frame
+    void render();
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
     std::unique_ptr<AsciiMapRenderer> MapRenderer_;
     std::unique_ptr<HUDRenderer> HudRenderer_;
 };

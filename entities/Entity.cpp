@@ -1,9 +1,9 @@
 #include "entities/Entity.h"
 
 Entity::Entity(std::size_t id)
-    : Id_(id)
+    : id_(id)
 {}
 
-std::size_t Entity::GetId() const {
-    return Id_;
+std::size_t Entity::getId() const {
+    return id_;
 }

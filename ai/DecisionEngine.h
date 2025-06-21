@@ -10,9 +10,9 @@ public:
     explicit DecisionEngine(ServiceLocator& locator);
 
     // Called each tick to update AI
-    void Update(float deltaTime);
+    void update(float deltaTime);
 
 private:
-    ServiceLocator& Locator_;                        // Access to services
-    std::unique_ptr<EnemyAIController> EnemyController_;  // Handles enemy AI
+    ServiceLocator& locator_;                        // Access to services
+    std::unique_ptr<EnemyAIController> enemyController_;
 };

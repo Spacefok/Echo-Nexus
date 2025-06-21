@@ -1,0 +1,6 @@
+{
+  "scout": {"health": 20, "speed": 1.8, "damage": 4, "armorClass": 0.1},
+  "assault": {"health": 30, "speed": 1.5, "damage": 6, "armorClass": 0.2},
+  "guardian": {"health": 40, "speed": 1.2, "damage": 8, "armorClass": 0.3},
+  "cube": {"health": 100, "speed": 0.8, "damage": 12, "armorClass": 0.4}
+}

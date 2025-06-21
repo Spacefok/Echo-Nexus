@@ -2,25 +2,25 @@
 #include <iostream>
 
 CombatLogScreen::CombatLogScreen()
-    : Visible_(false) {}
+    : visible_(false) {}
 
-void CombatLogScreen::Show() {
-    Visible_ = true;
+void CombatLogScreen::show() {
+    visible_ = true;
     std::cout << "--- Combat Log ---\n";
-    for (const auto& e : Entries_) {
+    for (const auto& e : entries_) {
         std::cout << e << "\n";
     }
 }
 
-void CombatLogScreen::Hide() {
-    Visible_ = false;
+void CombatLogScreen::hide() {
+    visible_ = false;
 }
 
-std::string CombatLogScreen::GetName() const {
+std::string CombatLogScreen::getName() const {
     return "CombatLog";
 }
 
-void CombatLogScreen::AddEntry(const std::string& entry) {
-    Entries_.push_back(entry);
-    if (Visible_) Show();
+void CombatLogScreen::addEntry(const std::string& entry) {
+    entries_.push_back(entry);
+    if (visible_) show();
 }

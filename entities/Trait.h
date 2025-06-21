@@ -9,12 +9,12 @@ public:
     Trait(const std::string& name, const std::string& description, float effectMultiplier);
 
     // Accessors
-    std::string GetName() const;
-    std::string GetDescription() const;
-    float GetEffectMultiplier() const;
+    std::string getName() const;
+    std::string getDescription() const;
+    float getEffectMultiplier() const;
 
 private:
-    std::string Name_;
-    std::string Description_;
-    float EffectMultiplier_;
+    std::string name_;
+    std::string description_;
+    float effectMultiplier_;
 };
