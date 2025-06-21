@@ -9,7 +9,14 @@ LevelGenerator::LevelGenerator(ServiceLocator& locator)
     : Locator_(locator) {}
 
 void LevelGenerator::GenerateLevel(int levelId) {
-    auto data = Locator_.Get<DataManager>()->LoadData("level_" + std::to_string(levelId));
+    auto dataManager = Locator_.Get<DataManager>();
+    auto data = dataManager->LoadData("level_" + std::to_string(levelId));
+    nlohmann::json enemyStats;
+    try {
+        enemyStats = dataManager->LoadData("enemy_stats");
+    } catch (const std::exception&) {
+        enemyStats = nlohmann::json::object();
+    }
     auto world = Locator_.Get<GameWorld>();
 
     // Create factions from data
@@ -23,8 +30,10 @@ void LevelGenerator::GenerateLevel(int levelId) {
     for (auto& d : data["drones"]) {
         int id = d.at("id").get<int>();
         std::string factionName = d.at("faction").get<std::string>();
-        int health = d.at("health").get<int>();
-        float speed = d.at("speed").get<float>();
+        int health = d.contains("health") ? d.at("health").get<int>()
+                   : enemyStats[d.at("type").get<std::string>()].value("health", 10);
+        float speed = d.contains("speed") ? d.at("speed").get<float>()
+                       : enemyStats[d.at("type").get<std::string>()].value("speed", 1.0f);
 
         auto drone = std::make_shared<Drone>(id,
                         factions[factionName], health, speed);

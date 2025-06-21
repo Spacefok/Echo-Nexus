@@ -1,0 +1,11 @@
+{
+  "factions": [
+    {"name": "SecurityBots"},
+    {"name": "MaintenanceCrew"}
+  ],
+  "drones": [
+    {"id": 10, "type": "scout", "faction": "SecurityBots"},
+    {"id": 11, "type": "assault", "faction": "SecurityBots"},
+    {"id": 12, "type": "guardian", "faction": "MaintenanceCrew"}
+  ]
+}
