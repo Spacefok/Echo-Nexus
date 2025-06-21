@@ -4,6 +4,7 @@
 #include "entities/Drone.h"
 #include "entities/Faction.h"
 #include "save/SaveManager.h"
+#include "narrative/NarrativeManager.h"
 #include <nlohmann/json.hpp>
 
 LevelGenerator::LevelGenerator(ServiceLocator& locator)
@@ -41,5 +42,9 @@ void LevelGenerator::GenerateLevel(int levelId) {
         auto drone = std::make_shared<Drone>(id,
                         factions[factionName], health, speed);
         world->AddEntity(drone);
+    }
+
+    if (levelId == 3) {
+        Locator_.Get<NarrativeManager>()->UnlockFragment("cube_awakens");
     }
 }

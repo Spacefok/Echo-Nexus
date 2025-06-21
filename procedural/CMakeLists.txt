@@ -18,4 +18,5 @@ target_link_libraries(proceduralLib PUBLIC
     dataLib
     coreLib
     saveLib
+    narrativeLib
 )

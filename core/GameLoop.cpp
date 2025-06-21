@@ -7,6 +7,7 @@
 #include "ui/CombatLogScreen.h"
 #include "ui/StatusScreen.h"
 #include "core/GameWorld.h"
+#include "core/EventSystem.h"
 #include <iostream>
 
 GameLoop::GameLoop(ServiceLocator& locator)
@@ -23,6 +24,7 @@ void GameLoop::Run() {
     ui->ShowScreen("CombatLog");
 
     bool running = true;
+    bool cubeEventSent = false;
     while (running) {
         bool endTurn = false;
         while (!endTurn) {
@@ -82,10 +84,16 @@ void GameLoop::Run() {
         bool anyDroneAlive = false;
         for (auto& e : world->GetEntities()) {
             auto drone = std::dynamic_pointer_cast<Drone>(e);
-            if (drone && drone->GetHealth() > 0) {
-                anyDroneAlive = true;
-                break;
+            if (drone) {
+                if (drone->GetHealth() > 0) {
+                    anyDroneAlive = true;
+                } else if (drone->GetId() == 99 && !cubeEventSent) {
+                    Locator_.Get<EventSystem>()->Emit("CubeDefeated");
+                    cubeEventSent = true;
+                }
             }
+            if (anyDroneAlive)
+                break;
         }
         if (!anyDroneAlive) {
             std::cout << "All enemies defeated!\n";

@@ -1,5 +1,6 @@
 #include "narrative/NarrativeManager.h"
 #include "narrative/MemoryFragment.h"
+#include "narrative/Quest.h"
 #include "data/DataManager.h"
 #include <nlohmann/json.hpp>
 
@@ -11,6 +12,25 @@ NarrativeManager::NarrativeManager(ServiceLocator& locator)
         "EncounteredDrone",
         [this]() { UnlockFragment("first_encounter"); }
     );
+}
+
+void NarrativeManager::AddQuest(const std::string& id) {
+    Quests_[id] = std::make_shared<Quest>(id);
+}
+
+void NarrativeManager::CompleteQuest(const std::string& id) {
+    auto it = Quests_.find(id);
+    if (it != Quests_.end()) {
+        it->second->Complete();
+    }
+}
+
+std::vector<std::shared_ptr<Quest>> NarrativeManager::GetQuests() const {
+    std::vector<std::shared_ptr<Quest>> quests;
+    for (auto& pair : Quests_) {
+        quests.push_back(pair.second);
+    }
+    return quests;
 }
 
 void NarrativeManager::StartStory(const std::string& startPoint) {

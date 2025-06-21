@@ -7,9 +7,11 @@ StoryEventRunner::StoryEventRunner(ServiceLocator& locator)
     : Locator_(locator) {}
 
 void StoryEventRunner::Initialize() {
-    Locator_.Get<EventSystem>()->Subscribe("PeriodicEvent", [this]() {
-        OnPeriodicEvent();
-    });
+    auto events = Locator_.Get<EventSystem>();
+    events->Subscribe("PeriodicEvent", [this]() { OnPeriodicEvent(); });
+    events->Subscribe("CubeDefeated", [this]() { OnCubeDefeated(); });
+
+    Locator_.Get<NarrativeManager>()->AddQuest("defeat_cube");
 }
 
 void StoryEventRunner::OnPeriodicEvent() {
@@ -17,4 +19,11 @@ void StoryEventRunner::OnPeriodicEvent() {
     auto narrative = Locator_.Get<NarrativeManager>();
     narrative->UnlockFragment("secret_log");
     std::cout << "StoryEventRunner: secret_log unlocked\n";
+}
+
+void StoryEventRunner::OnCubeDefeated() {
+    auto narrative = Locator_.Get<NarrativeManager>();
+    narrative->UnlockFragment("cube_destroyed");
+    narrative->CompleteQuest("defeat_cube");
+    std::cout << "StoryEventRunner: cube_destroyed unlocked\n";
 }

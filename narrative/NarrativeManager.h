@@ -8,6 +8,7 @@
 
 class ServiceLocator;
 class MemoryFragment;
+class Quest;
 
 // Manages narrative fragments and quest progression
 class NarrativeManager {
@@ -26,10 +27,15 @@ public:
     // Unlock a specific fragment by id
     void UnlockFragment(const std::string& id);
 
+    void AddQuest(const std::string& id);
+    void CompleteQuest(const std::string& id);
+    std::vector<std::shared_ptr<Quest>> GetQuests() const;
+
     // Get unlocked fragments
     std::vector<std::shared_ptr<MemoryFragment>> GetUnlockedFragments() const;
 
 private:
     ServiceLocator& Locator_;  // Access to DataManager
     std::unordered_map<std::string, std::shared_ptr<MemoryFragment>> Fragments_; // All fragments
+    std::unordered_map<std::string, std::shared_ptr<Quest>> Quests_;
 };

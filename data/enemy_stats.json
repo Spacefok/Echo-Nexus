@@ -2,4 +2,5 @@
   "scout": {"health": 20, "speed": 1.8},
   "assault": {"health": 30, "speed": 1.5},
   "guardian": {"health": 40, "speed": 1.2}
+  ,"cube": {"health": 100, "speed": 0.8}
 }

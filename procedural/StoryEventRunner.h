@@ -16,4 +16,6 @@ private:
 
     // Handle a periodic event
     void OnPeriodicEvent();
+
+    void OnCubeDefeated();
 };
