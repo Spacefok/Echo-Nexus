@@ -4,24 +4,24 @@
 #include "core/GameWorld.h"  
 #include "core/EventSystem.h"  
 #include "ui/CombatLogScreen.h"  
-#include "core/ServiceLocator.h" // Ensure ServiceLocator is included  
+#include "ServiceLocator.h" // Ensure ServiceLocator is included  
 #include <iostream>  
 
 DroneBehavior::DroneBehavior(ServiceLocator& locator)  
-    : Locator_(locator) {}  
+    : locator_(locator) {}  
 
-void DroneBehavior::Execute(std::shared_ptr<Drone> drone, float deltaTime) {  
+void DroneBehavior::execute(std::shared_ptr<Drone> drone, float deltaTime) {  
     static float attackTimer = 0.0f;  
     static bool firstAttack = true;  
     attackTimer += deltaTime;  
     if (attackTimer >= 3.0f) {  
-        auto world = Locator_.Get<GameWorld>();  
+        auto world = locator_.get<GameWorld>();  
         if (!world) {  
             std::cerr << "GameWorld service not found.\n";  
             return;  
         }  
 
-        auto entity = world->GetEntity(1); // assumes player ID=1  
+        auto entity = world->getEntity(1); // assumes player ID=1  
         if (!entity) {  
             std::cerr << "Entity with ID 1 not found.\n";  
             return;  
@@ -33,23 +33,24 @@ void DroneBehavior::Execute(std::shared_ptr<Drone> drone, float deltaTime) {
             return;  
         }  
 
-        std::cout << "Drone " << drone->GetId() << " attacks player!\n";  
-        player->ApplyDamage(5);  
+        int damage = static_cast<int>(drone->getDamage() * (1 + 0.0f - player->getArmorClass()));
+        std::cout << "Drone " << drone->getId() << " attacks player!\n";  
+        player->applyDamage(damage);  
 
         // Log attack to combat screen  
-        auto combatLogScreen = Locator_.Get<CombatLogScreen>();  
+        auto combatLogScreen = locator_.get<CombatLogScreen>();  
         if (combatLogScreen) {  
-            combatLogScreen->AddEntry(  
-                "Drone " + std::to_string(drone->GetId()) + " hits player for 5 damage"  
+            combatLogScreen->addEntry(  
+                "Drone " + std::to_string(drone->getId()) + " hits player for " + std::to_string(damage) + " damage"  
             );  
         } else {  
             std::cerr << "CombatLogScreen service not found.\n";  
         }  
 
         if (firstAttack) {  
-            auto eventSystem = Locator_.Get<EventSystem>();  
+            auto eventSystem = locator_.get<EventSystem>();  
             if (eventSystem) {  
-                eventSystem->Emit("EncounteredDrone");  
+                eventSystem->emit("EncounteredDrone");  
             } else {  
                 std::cerr << "EventSystem service not found.\n";  
             }  

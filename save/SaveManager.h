@@ -1,5 +1,5 @@
 #pragma once
-#include "core/ServiceLocator.h"
+#include "ServiceLocator.h"
 #include <string>
 #include <unordered_set>
 #include <nlohmann/json.hpp>
@@ -12,24 +12,24 @@ public:
     explicit SaveManager(const std::string& filePath, ServiceLocator& locator);
 
     // Load save data from disk
-    void Load();
+    void load();
 
     // Save current state to disk
-    void Save() const;
+    void save() const;
 
     // Set current level value
-    void SetCurrentLevel(int level);
-    int GetCurrentLevel() const;
+    void setCurrentLevel(int level);
+    int getCurrentLevel() const;
 
 private:
-    std::string FilePath_;             // Path to save file
-    ServiceLocator& Locator_;          // Access to managers and world
+    std::string filePath_;
+    ServiceLocator& locator_;
     
     // The state being saved
     struct SaveState {
-        int CurrentLevel = 0;
-        int PlayerHealth = 0;
-        float PlayerVirus = 0.0f;
-        std::unordered_set<std::string> UnlockedFragments;
-    } State_;
+        int currentLevel = 0;
+        int playerHealth = 0;
+        float playerVirus = 0.0f;
+        std::unordered_set<std::string> unlockedFragments;
+    } state_;
 };

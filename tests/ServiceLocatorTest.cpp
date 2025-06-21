@@ -12,13 +12,13 @@ int main() {
 
     // Test registration and retrieval
     auto serviceA = std::make_shared<DummyService<int>>();
-    locator.Register<DummyService<int>>(serviceA);
-    assert(locator.Get<DummyService<int>>() == serviceA);
+    locator.registerService<DummyService<int>>(serviceA);
+    assert(locator.get<DummyService<int>>() == serviceA);
 
     // Test duplicate registration throws
     bool duplicateThrown = false;
     try {
-        locator.Register<DummyService<int>>(serviceA);
+        locator.registerService<DummyService<int>>(serviceA);
     } catch (const std::runtime_error& e) {
         duplicateThrown = true;
     }
@@ -27,7 +27,7 @@ int main() {
     // Test retrieval of unregistered service throws
     bool notFoundThrown = false;
     try {
-        locator.Get<DummyService<float>>();
+        locator.get<DummyService<float>>();
     } catch (const std::runtime_error& e) {
         notFoundThrown = true;
     }

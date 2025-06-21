@@ -6,7 +6,7 @@
   "drones": [
     {"id": 20, "type": "assault", "faction": "ShadowProgram"},
     {"id": 21, "type": "guardian", "faction": "SecurityBots"},
-    {"id": 22, "type": "guardian", "faction": "ShadowProgram"}
-    ,{"id": 99, "type": "cube", "faction": "ShadowProgram", "health": 100}
+    {"id": 22, "type": "guardian", "faction": "ShadowProgram"},
+    {"id": 99, "type": "cube", "faction": "ShadowProgram", "health": 100}
   ]
 }

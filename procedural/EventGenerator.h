@@ -8,9 +8,9 @@ public:
     explicit EventGenerator(ServiceLocator& locator);
     
     // Called each tick to possibly generate events
-    void Update(float deltaTime);
+    void update(float deltaTime);
 
 private:
-    ServiceLocator& Locator_;
-    float Timer_;
+    ServiceLocator& locator_;
+    float timer_;
 };

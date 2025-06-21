@@ -2,6 +2,7 @@
 
 #include "entities/Entity.h"
 #include "entities/CloneBody.h"
+#include "entities/Trait.h"
 #include <memory>
 #include <vector>
 
@@ -11,29 +12,42 @@ public:
     // Initialize with unique ID and initial clone body
     Player(std::size_t id, std::shared_ptr<CloneBody> initialBody);
 
+    void setCombatStats(float baseDamage, float weaponMod, float armorClass);
+
+
     // Update called each tick (e.g., handle virus effects)
-    void Update(float deltaTime) override;
+    void update(float deltaTime) override;
 
     // Health accessors
-    int GetHealth() const;
-    int GetMaxHealth() const;
+    int getHealth() const;
+    int getMaxHealth() const;
 
     // Virus getters and modifiers
-    float GetVirusLevel() const;
-    void AddVirus(float amount);
+    float getVirusLevel() const;
+    void addVirus(float amount);
 
     // Apply damage to player
-    void ApplyDamage(int amount);
+    void applyDamage(int amount);
 
     // Restore health to player
-    void Heal(int amount);
+    void heal(int amount);
 
     // Handle rebirth into new clone body
-    void Rebirth(std::shared_ptr<CloneBody> newBody);
+    void rebirth(std::shared_ptr<CloneBody> newBody);
+
+    void addTrait(std::shared_ptr<Trait> trait);
+
+    float getArmorClass() const;
+    float getBaseDamage() const;
+    float getWeaponMod() const;
 
 private:
     // Currently active body
-    std::shared_ptr<CloneBody> CurrentBody_;
-    float VirusLevel_;                     // Accumulated virus corruption
-    std::vector<std::shared_ptr<CloneBody>> BodyHistory_;  // All bodies used
+    std::shared_ptr<CloneBody> currentBody_;
+    float virusLevel_;
+    std::vector<std::shared_ptr<CloneBody>> bodyHistory_;
+    std::vector<std::shared_ptr<Trait>> traits_;
+    float baseDamage_ = 0.f;
+    float weaponMod_ = 0.f;
+    float armorClass_ = 0.f;
 };

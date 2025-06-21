@@ -1,24 +1,24 @@
 #include "entities/CloneBody.h"
 
 CloneBody::CloneBody(int maxHealth, float virusRate, float virusCarryover)
-    : Health_(maxHealth), MaxHealth_(maxHealth), VirusRate_(virusRate), VirusCarryover_(virusCarryover) {}
+    : health_(maxHealth), maxHealth_(maxHealth), virusRate_(virusRate), virusCarryover_(virusCarryover) {}
 
-int CloneBody::GetHealth() const {
-    return Health_;
+int CloneBody::getHealth() const {
+    return health_;
 }
 
-void CloneBody::SetHealth(int health) {
-    Health_ = health;
+void CloneBody::setHealth(int health) {
+    health_ = health;
 }
 
-int CloneBody::GetMaxHealth() const {
-    return MaxHealth_;
+int CloneBody::getMaxHealth() const {
+    return maxHealth_;
 }
 
-float CloneBody::GetVirusRate() const {
-    return VirusRate_;
+float CloneBody::getVirusRate() const {
+    return virusRate_;
 }
 
-float CloneBody::GetVirusCarryover() const {
-    return VirusCarryover_;
+float CloneBody::getVirusCarryover() const {
+    return virusCarryover_;
 }

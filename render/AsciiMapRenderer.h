@@ -10,10 +10,10 @@ class ServiceLocator;
 class AsciiMapRenderer {
 public:
     explicit AsciiMapRenderer(ServiceLocator& locator);
-    void RenderMap(const std::vector<std::shared_ptr<Entity>>& entities);
+    void renderMap(const std::vector<std::shared_ptr<Entity>>& entities);
 
 private:
-    ServiceLocator& Locator_;
-    int MapWidth_;
-    int MapHeight_;
+    ServiceLocator& locator_;
+    int mapWidth_;
+    int mapHeight_;
 };

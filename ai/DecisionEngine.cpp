@@ -3,9 +3,9 @@
 #include <memory>
 
 DecisionEngine::DecisionEngine(ServiceLocator& locator)
-    : Locator_(locator),
-      EnemyController_(std::make_unique<EnemyAIController>(locator)) {}
+    : locator_(locator),
+      enemyController_(std::make_unique<EnemyAIController>(locator)) {}
 
-void DecisionEngine::Update(float deltaTime) {
-    EnemyController_->Update(deltaTime);
+void DecisionEngine::update(float deltaTime) {
+    enemyController_->update(deltaTime);
 }

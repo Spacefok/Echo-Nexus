@@ -10,6 +10,8 @@
 #include "procedural/EventGenerator.h"
 #include "procedural/StoryEventRunner.h"
 #include "ai/DecisionEngine.h"
+#include "entities/Player.h"
+#include "entities/CloneBody.h"
 #include "ui/UIManager.h"
 #include "ui/CombatLogScreen.h"
 #include "ui/StatusScreen.h"
@@ -24,64 +26,77 @@ int main() {
 
     // Core services
     auto eventSystem = std::make_shared<EventSystem>();
-    serviceLocator.Register<EventSystem>(eventSystem);
+    serviceLocator.registerService<EventSystem>(eventSystem);
 
     // Data and resources
     auto dataManager = std::make_shared<DataManager>(gameConfig.DataPath);
-    serviceLocator.Register<DataManager>(dataManager);
+    serviceLocator.registerService<DataManager>(dataManager);
     auto resourceLoader = std::make_shared<ResourceLoader>(gameConfig.ResourcePath);
-    serviceLocator.Register<ResourceLoader>(resourceLoader);
+    serviceLocator.registerService<ResourceLoader>(resourceLoader);
 
     // World and narrative
     auto gameWorld = std::make_shared<GameWorld>();
-    serviceLocator.Register<GameWorld>(gameWorld);
+    serviceLocator.registerService<GameWorld>(gameWorld);
     auto narrativeManager = std::make_shared<NarrativeManager>(serviceLocator);
-    serviceLocator.Register<NarrativeManager>(narrativeManager);
-    narrativeManager->LoadFragments("memory_fragments");
-    narrativeManager->StartStory(gameConfig.StoryStartPoint);
+    serviceLocator.registerService<NarrativeManager>(narrativeManager);
+    narrativeManager->loadFragments("memory_fragments");
+    narrativeManager->startStory(gameConfig.StoryStartPoint);
+
+    // Player setup
+    auto playerData = dataManager->loadData("player_stats");
+    auto playerBody = std::make_shared<CloneBody>(
+        playerData["maxHealth"].get<int>(),
+        playerData["virusRate"].get<float>(),
+        playerData["virusCarryover"].get<float>());
+    auto player = std::make_shared<Player>(1, playerBody);
+    player->setCombatStats(playerData["baseDamage"].get<float>(),
+                           playerData["weaponMod"].get<float>(),
+                           playerData["armorClass"].get<float>());
+    serviceLocator.registerService<Player>(player);
+    gameWorld->addEntity(player);
 
     // Save manager
     auto saveManager = std::make_shared<SaveManager>("saves/savegame.json", serviceLocator);
-    serviceLocator.Register<SaveManager>(saveManager);
-    saveManager->Load();
+    serviceLocator.registerService<SaveManager>(saveManager);
+    saveManager->load();
 
     // Level generation
     LevelGenerator levelGenerator(serviceLocator);
-    int startLevel = saveManager->GetCurrentLevel();
+    int startLevel = saveManager->getCurrentLevel();
     if (startLevel == 0) {
         startLevel = gameConfig.StartLevel;
     }
-    levelGenerator.GenerateLevel(startLevel);
+    levelGenerator.generateLevel(startLevel);
 
     // AI engine
     auto decisionEngine = std::make_shared<DecisionEngine>(serviceLocator);
-    serviceLocator.Register<DecisionEngine>(decisionEngine);
+    serviceLocator.registerService<DecisionEngine>(decisionEngine);
 
     // UI Manager and Combat Log
     auto uiManager = std::make_shared<UIManager>(serviceLocator);
-    serviceLocator.Register<UIManager>(uiManager);
+    serviceLocator.registerService<UIManager>(uiManager);
     auto combatLog = std::make_shared<CombatLogScreen>();
-    uiManager->RegisterScreen(combatLog);
-    serviceLocator.Register<CombatLogScreen>(combatLog);
+    uiManager->registerScreen(combatLog);
+    serviceLocator.registerService<CombatLogScreen>(combatLog);
 
     // Экран статуса игрока
     auto statusScreen = std::make_shared<StatusScreen>(serviceLocator);
-    uiManager->RegisterScreen(statusScreen);
-    serviceLocator.Register<StatusScreen>(statusScreen);
+    uiManager->registerScreen(statusScreen);
+    serviceLocator.registerService<StatusScreen>(statusScreen);
 
     // Procedural generators
     auto eventGenerator = std::make_shared<EventGenerator>(serviceLocator);
-    serviceLocator.Register<EventGenerator>(eventGenerator);
+    serviceLocator.registerService<EventGenerator>(eventGenerator);
     auto storyRunner = std::make_shared<StoryEventRunner>(serviceLocator);
-    serviceLocator.Register<StoryEventRunner>(storyRunner);
-    storyRunner->Initialize();
+    serviceLocator.registerService<StoryEventRunner>(storyRunner);
+    storyRunner->initialize();
 
     // Main loop
     GameLoop gameLoop(serviceLocator);
     // Run until exit condition
-    gameLoop.Run();
+    gameLoop.run();
 
     // Auto-save on exit
-    saveManager->Save();
+    saveManager->save();
     return 0;
 }

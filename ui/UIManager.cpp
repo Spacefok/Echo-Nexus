@@ -3,31 +3,31 @@
 #include <iostream>
 
 UIManager::UIManager(ServiceLocator& locator)
-    : Locator_(locator) {}
+    : locator_(locator) {}
 
-void UIManager::RegisterScreen(std::shared_ptr<UIScreen> screen) {
-    Screens_[screen->GetName()] = screen;
+void UIManager::registerScreen(std::shared_ptr<UIScreen> screen) {
+    screens_[screen->getName()] = screen;
 }
 
-void UIManager::ShowScreen(const std::string& name) {
-    if (Screens_.count(name)) {
-        ActiveScreens_.insert(name);
-        Screens_[name]->Show();
+void UIManager::showScreen(const std::string& name) {
+    if (screens_.count(name)) {
+        activeScreens_.insert(name);
+        screens_[name]->show();
     }
 }
 
-void UIManager::HideScreen(const std::string& name) {
-    if (Screens_.count(name) && Screens_[name]) {
-        Screens_[name]->Hide();
-        ActiveScreens_.erase(name);
+void UIManager::hideScreen(const std::string& name) {
+    if (screens_.count(name) && screens_[name]) {
+        screens_[name]->hide();
+        activeScreens_.erase(name);
     }
 }
 
-void UIManager::Update(float /*deltaTime*/) {
-    for (const auto& name : ActiveScreens_) {
-        auto it = Screens_.find(name);
-        if (it != Screens_.end()) {
-            it->second->Show();
+void UIManager::update(float /*deltaTime*/) {
+    for (const auto& name : activeScreens_) {
+        auto it = screens_.find(name);
+        if (it != screens_.end()) {
+            it->second->show();
         }
     }
     

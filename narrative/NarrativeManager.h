@@ -17,25 +17,25 @@ public:
     explicit NarrativeManager(ServiceLocator& locator);
 
     // Load fragments from data files
-    void LoadFragments(const std::string& fileName);
+    void loadFragments(const std::string& fileName);
 
-    void StartStory(const std::string& startPoint);
+    void startStory(const std::string& startPoint);
 
     // Update narrative state each tick
-    void Update(float deltaTime);
+    void update(float deltaTime);
 
     // Unlock a specific fragment by id
-    void UnlockFragment(const std::string& id);
+    void unlockFragment(const std::string& id);
 
-    void AddQuest(const std::string& id);
-    void CompleteQuest(const std::string& id);
-    std::vector<std::shared_ptr<Quest>> GetQuests() const;
+    void addQuest(const std::string& id);
+    void completeQuest(const std::string& id);
+    std::vector<std::shared_ptr<Quest>> getQuests() const;
 
     // Get unlocked fragments
-    std::vector<std::shared_ptr<MemoryFragment>> GetUnlockedFragments() const;
+    std::vector<std::shared_ptr<MemoryFragment>> getUnlockedFragments() const;
 
 private:
-    ServiceLocator& Locator_;  // Access to DataManager
-    std::unordered_map<std::string, std::shared_ptr<MemoryFragment>> Fragments_; // All fragments
+    ServiceLocator& Locator_;
+    std::unordered_map<std::string, std::shared_ptr<MemoryFragment>> Fragments_;
     std::unordered_map<std::string, std::shared_ptr<Quest>> Quests_;
 };

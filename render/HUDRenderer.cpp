@@ -3,14 +3,14 @@
 #include "entities/Player.h"  
 #include <iostream>  
 
-HUDRenderer::HUDRenderer(ServiceLocator& locator)  
-    : Locator_(locator) {}  
+HUDRenderer::HUDRenderer(ServiceLocator& locator)
+    : locator_(locator) {}
 
-void HUDRenderer::RenderHud() {  
-    auto player = Locator_.Get<Player>();  
-    int health = player->GetHealth();  
-    int maxHealth = player->GetMaxHealth();  
-    float virus = player->GetVirusLevel();  
-    std::cout << "Health: " << health << "/" << maxHealth  
-              << "  Virus: " << virus << std::endl;  
+void HUDRenderer::renderHud() {
+    auto player = locator_.get<Player>();
+    int health = player->getHealth();
+    int maxHealth = player->getMaxHealth();
+    float virus = player->getVirusLevel();  
+    std::cout << "Health: " << health << "/" << maxHealth
+              << "  Virus: " << virus << std::endl;
 }

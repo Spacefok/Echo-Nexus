@@ -6,7 +6,7 @@
 class UIScreen {
 public:
     virtual ~UIScreen() = default;
-    virtual void Show() = 0;
-    virtual void Hide() = 0;
-    virtual std::string GetName() const = 0;
+    virtual void show() = 0;
+    virtual void hide() = 0;
+    virtual std::string getName() const = 0;
 };

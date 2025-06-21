@@ -10,8 +10,8 @@ public:
     explicit EnemyAIController(ServiceLocator& locator);
 
     // Update all enemies each tick
-    void Update(float deltaTime);
+    void update(float deltaTime);
 
 private:
-    ServiceLocator& Locator_;
+    ServiceLocator& locator_;
 };

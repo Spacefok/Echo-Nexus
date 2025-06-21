@@ -3,19 +3,19 @@
 #include <iostream>
 
 StatusScreen::StatusScreen(ServiceLocator& locator)
-    : Locator_(locator), Visible_(false) {}
+    : locator_(locator), visible_(false) {}
 
-void StatusScreen::Show() {
-    Visible_ = true;
-    auto player = Locator_.Get<Player>();
-    std::cout << "HP: " << player->GetHealth() << "/" << player->GetMaxHealth()
-              << "  Virus: " << player->GetVirusLevel() << std::endl;
+void StatusScreen::show() {
+    visible_ = true;
+    auto player = locator_.get<Player>();
+    std::cout << "HP: " << player->getHealth() << "/" << player->getMaxHealth()
+              << "  Virus: " << player->getVirusLevel() << std::endl;
 }
 
-void StatusScreen::Hide() {
-    Visible_ = false;
+void StatusScreen::hide() {
+    visible_ = false;
 }
 
-std::string StatusScreen::GetName() const {
+std::string StatusScreen::getName() const {
     return "Status";
 }

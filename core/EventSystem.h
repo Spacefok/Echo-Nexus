@@ -10,11 +10,11 @@ public:
     using Callback = std::function<void()>;
 
     // Subscribe a callback to an event name
-    void Subscribe(const std::string& eventName, Callback cb);
+    void subscribe(const std::string& eventName, Callback cb);
 
     // Emit event to all subscribers
-    void Emit(const std::string& eventName);
+    void emit(const std::string& eventName);
 
 private:
-    std::unordered_map<std::string, std::vector<Callback>> Subscribers_;
+    std::unordered_map<std::string, std::vector<Callback>> subscribers_;
 };

@@ -1,4 +1,4 @@
-#include "core/ServiceLocator.h"
+#include "ServiceLocator.h"
 #include "core/EventSystem.h"
 #include "core/GameWorld.h"
 #include "entities/Player.h"
@@ -13,50 +13,50 @@
 int main() {
     ServiceLocator locator;
     auto events = std::make_shared<EventSystem>();
-    locator.Register<EventSystem>(events);
+    locator.registerService<EventSystem>(events);
     auto world = std::make_shared<GameWorld>();
-    locator.Register<GameWorld>(world);
+    locator.registerService<GameWorld>(world);
     auto data = std::make_shared<DataManager>(DATA_DIR);
-    locator.Register<DataManager>(data);
+    locator.registerService<DataManager>(data);
     auto player = std::make_shared<Player>(1, std::make_shared<CloneBody>(100, 0.f, 0.f));
-    locator.Register<Player>(player);
+    locator.registerService<Player>(player);
     auto narrative = std::make_shared<NarrativeManager>(locator);
-    locator.Register<NarrativeManager>(narrative);
-    narrative->LoadFragments("memory_fragments");
+    locator.registerService<NarrativeManager>(narrative);
+    narrative->loadFragments("memory_fragments");
 
     auto saver = std::make_shared<SaveManager>("test_save.json", locator);
-    locator.Register<SaveManager>(saver);
-    saver->SetCurrentLevel(2);
-    player->ApplyDamage(20); // 80 HP
-    player->AddVirus(15.0f);
-    narrative->UnlockFragment("secret_log");
-    saver->Save();
+    locator.registerService<SaveManager>(saver);
+    saver->setCurrentLevel(2);
+    player->applyDamage(20); // 80 HP
+    player->addVirus(15.0f);
+    narrative->unlockFragment("secret_log");
+    saver->save();
 
     // create new environment to load
     ServiceLocator locator2;
     auto events2 = std::make_shared<EventSystem>();
-    locator2.Register<EventSystem>(events2);
+    locator2.registerService<EventSystem>(events2);
     auto world2 = std::make_shared<GameWorld>();
-    locator2.Register<GameWorld>(world2);
+    locator2.registerService<GameWorld>(world2);
     auto data2 = std::make_shared<DataManager>(DATA_DIR);
-    locator2.Register<DataManager>(data2);
+    locator2.registerService<DataManager>(data2);
     auto player2 = std::make_shared<Player>(1, std::make_shared<CloneBody>(100, 0.f, 0.f));
-    locator2.Register<Player>(player2);
+    locator2.registerService<Player>(player2);
     auto narrative2 = std::make_shared<NarrativeManager>(locator2);
-    locator2.Register<NarrativeManager>(narrative2);
-    narrative2->LoadFragments("memory_fragments");
+    locator2.registerService<NarrativeManager>(narrative2);
+    narrative2->loadFragments("memory_fragments");
 
     auto saverPtr = std::make_shared<SaveManager>("test_save.json", locator2);
-    locator2.Register<SaveManager>(saverPtr);
-    saverPtr->Load();
+    locator2.registerService<SaveManager>(saverPtr);
+    saverPtr->load();
 
-    assert(saverPtr->GetCurrentLevel() == 2);
-    assert(player2->GetHealth() == 80);
-    assert(static_cast<int>(player2->GetVirusLevel()) == 15);
-    auto unlocked = narrative2->GetUnlockedFragments();
+    assert(saverPtr->getCurrentLevel() == 2);
+    assert(player2->getHealth() == 80);
+    assert(static_cast<int>(player2->getVirusLevel()) == 15);
+    auto unlocked = narrative2->getUnlockedFragments();
     bool found = false;
     for (auto& f : unlocked) {
-        if (f->GetId() == "secret_log") { found = true; break; }
+        if (f->getId() == "secret_log") { found = true; break; }
     }
     assert(found && "Fragment not loaded");
 

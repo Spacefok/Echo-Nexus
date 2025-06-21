@@ -10,14 +10,14 @@ public:
     explicit Faction(const std::string& name);
 
     // Accessors
-    std::string GetName() const;
+    std::string getName() const;
 
     // Set relationship score (-100 to 100) with another faction
-    void SetRelationship(const std::string& other, int reputation);
+    void setRelationship(const std::string& other, int reputation);
     // Get relationship score, default 0 if not set
-    int GetRelationship(const std::string& other) const;
+    int getRelationship(const std::string& other) const;
 
 private:
-    std::string Name_;
-    std::unordered_map<std::string, int> Relationships_;
+    std::string name_;
+    std::unordered_map<std::string, int> relationships_;
 };

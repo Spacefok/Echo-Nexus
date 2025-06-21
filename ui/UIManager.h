@@ -14,19 +14,19 @@ public:
     explicit UIManager(ServiceLocator& locator);
 
     // Register a screen
-    void RegisterScreen(std::shared_ptr<UIScreen> screen);
+    void registerScreen(std::shared_ptr<UIScreen> screen);
 
-    // Show a screen by name
-    void ShowScreen(const std::string& name);
+    // show() a screen by name
+    void showScreen(const std::string& name);
 
-    // Hide a screen by name
-    void HideScreen(const std::string& name);
+    // hide() a screen by name
+    void hideScreen(const std::string& name);
 
     // Update UI (handle input, draw active screens)
-    void Update(float deltaTime);
+    void update(float deltaTime);
 
 private:
-    ServiceLocator& Locator_;
-    std::unordered_map<std::string, std::shared_ptr<UIScreen>> Screens_;
-    std::unordered_set<std::string> ActiveScreens_;
+    ServiceLocator& locator_;
+    std::unordered_map<std::string, std::shared_ptr<UIScreen>> screens_;
+    std::unordered_set<std::string> activeScreens_;
 };

@@ -6,11 +6,11 @@
 // Holds all entities in the game world
 class GameWorld {
 public:
-    void AddEntity(std::shared_ptr<Entity> entity);
-    std::shared_ptr<Entity> GetEntity(std::size_t id);
-    std::vector<std::shared_ptr<Entity>> GetEntities() const;
-    void Update(float deltaTime);
+    void addEntity(std::shared_ptr<Entity> entity);
+    std::shared_ptr<Entity> getEntity(std::size_t id);
+    std::vector<std::shared_ptr<Entity>> getEntities() const;
+    void update(float deltaTime);
 
 private:
-    std::vector<std::shared_ptr<Entity>> Entities_;
+    std::vector<std::shared_ptr<Entity>> entities_;
 };

@@ -4,26 +4,26 @@
 #include <iostream>
 
 StoryEventRunner::StoryEventRunner(ServiceLocator& locator)
-    : Locator_(locator) {}
+    : locator_(locator) {}
 
-void StoryEventRunner::Initialize() {
-    auto events = Locator_.Get<EventSystem>();
-    events->Subscribe("PeriodicEvent", [this]() { OnPeriodicEvent(); });
-    events->Subscribe("CubeDefeated", [this]() { OnCubeDefeated(); });
+void StoryEventRunner::initialize() {
+    auto events = locator_.get<EventSystem>();
+    events->subscribe("PeriodicEvent", [this]() { onPeriodicEvent(); });
+    events->subscribe("CubeDefeated", [this]() { onCubeDefeated(); });
 
-    Locator_.Get<NarrativeManager>()->AddQuest("defeat_cube");
+    locator_.get<NarrativeManager>()->addQuest("defeat_cube");
 }
 
-void StoryEventRunner::OnPeriodicEvent() {
+void StoryEventRunner::onPeriodicEvent() {
     // Unlock a random fragment for demo
-    auto narrative = Locator_.Get<NarrativeManager>();
-    narrative->UnlockFragment("secret_log");
+    auto narrative = locator_.get<NarrativeManager>();
+    narrative->unlockFragment("secret_log");
     std::cout << "StoryEventRunner: secret_log unlocked\n";
 }
 
-void StoryEventRunner::OnCubeDefeated() {
-    auto narrative = Locator_.Get<NarrativeManager>();
-    narrative->UnlockFragment("cube_destroyed");
-    narrative->CompleteQuest("defeat_cube");
+void StoryEventRunner::onCubeDefeated() {
+    auto narrative = locator_.get<NarrativeManager>();
+    narrative->unlockFragment("cube_destroyed");
+    narrative->completeQuest("defeat_cube");
     std::cout << "StoryEventRunner: cube_destroyed unlocked\n";
 }

@@ -1,18 +1,18 @@
 #pragma once
 
 #include "ui/UIScreen.h"
-#include "core/ServiceLocator.h"
+#include "ServiceLocator.h"
 class Player;
 
 // Экран статуса игрока: здоровье и уровень вируса
 class StatusScreen : public UIScreen {
 public:
     explicit StatusScreen(ServiceLocator& locator);
-    void Show() override;
-    void Hide() override;
-    std::string GetName() const override;
+    void show() override;
+    void hide() override;
+    std::string getName() const override;
 
 private:
-    ServiceLocator& Locator_;
-    bool Visible_;
+    ServiceLocator& locator_;
+    bool visible_;
 };

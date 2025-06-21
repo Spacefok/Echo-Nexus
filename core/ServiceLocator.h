@@ -8,24 +8,24 @@
 class ServiceLocator {
 public:
     template<typename T>
-    void Register(std::shared_ptr<T> service) {
+    void registerService(std::shared_ptr<T> service) {
         auto type = std::type_index(typeid(T));
-        if (Services_.count(type)) {
+        if (services_.count(type)) {
             throw std::runtime_error("Service already registered");
         }
-        Services_[type] = service;
+        services_[type] = service;
     }
 
     template<typename T>
-    std::shared_ptr<T> Get() {
+    std::shared_ptr<T> get() {
         auto type = std::type_index(typeid(T));
-        auto it = Services_.find(type);
-        if (it == Services_.end()) {
+        auto it = services_.find(type);
+        if (it == services_.end()) {
             throw std::runtime_error("Service not found");
         }
         return std::static_pointer_cast<T>(it->second);
     }
 
 private:
-    std::unordered_map<std::type_index, std::shared_ptr<void>> Services_;
+    std::unordered_map<std::type_index, std::shared_ptr<void>> services_;
 };

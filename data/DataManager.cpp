@@ -3,11 +3,11 @@
 #include <stdexcept>
 
 DataManager::DataManager(const std::string& dataPath)
-    : DataPath_(dataPath) {}
+    : dataPath_(dataPath) {}
 
-nlohmann::json DataManager::LoadData(const std::string& fileName) const {
+nlohmann::json DataManager::loadData(const std::string& fileName) const {
     // Construct full path to JSON file
-    std::string fullPath = DataPath_ + "/" + fileName + ".json";
+    std::string fullPath = dataPath_ + "/" + fileName + ".json";
     std::ifstream input(fullPath);
     if (!input.is_open()) {
         throw std::runtime_error("Cannot open data file: " + fullPath);

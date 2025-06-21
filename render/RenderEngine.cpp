@@ -5,13 +5,13 @@
 #include <cstdlib>
 
 RenderEngine::RenderEngine(ServiceLocator& locator)
-    : Locator_(locator),
+    : locator_(locator),
       MapRenderer_(std::make_unique<AsciiMapRenderer>(locator)),
       HudRenderer_(std::make_unique<HUDRenderer>(locator)) {}
 
-void RenderEngine::Render() {
+void RenderEngine::render() {
     std::system("clear");  // Clear console screen
-    auto entities = Locator_.Get<GameWorld>()->GetEntities();
-    MapRenderer_->RenderMap(entities);
-    HudRenderer_->RenderHud();
+    auto entities = locator_.get<GameWorld>()->getEntities();
+    MapRenderer_->renderMap(entities);
+    HudRenderer_->renderHud();
 }

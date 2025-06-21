@@ -1,0 +1,8 @@
+{
+  "maxHealth": 100,
+  "virusRate": 0.5,
+  "virusCarryover": 5,
+  "baseDamage": 5,
+  "weaponMod": 0.0,
+  "armorClass": 0.05
+}
