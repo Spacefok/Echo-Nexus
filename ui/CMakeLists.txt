@@ -3,6 +3,7 @@ add_library(uiLib STATIC
     UIManager.cpp
     UIScreen.cpp
     CombatLogScreen.cpp
+    StatusScreen.cpp
 )
 
 # Зависимости: UI использует подсистемы отрисовки и ядра игры

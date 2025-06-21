@@ -3,7 +3,7 @@
 #include <iostream>
 
 UIManager::UIManager(ServiceLocator& locator)
-    : Locator_(locator), ActiveScreen_("") {}
+    : Locator_(locator) {}
 
 void UIManager::RegisterScreen(std::shared_ptr<UIScreen> screen) {
     Screens_[screen->GetName()] = screen;
@@ -11,10 +11,7 @@ void UIManager::RegisterScreen(std::shared_ptr<UIScreen> screen) {
 
 void UIManager::ShowScreen(const std::string& name) {
     if (Screens_.count(name)) {
-        if (!ActiveScreen_.empty() && Screens_[ActiveScreen_]) {
-            Screens_[ActiveScreen_]->Hide();
-        }
-        ActiveScreen_ = name;
+        ActiveScreens_.insert(name);
         Screens_[name]->Show();
     }
 }
@@ -22,14 +19,16 @@ void UIManager::ShowScreen(const std::string& name) {
 void UIManager::HideScreen(const std::string& name) {
     if (Screens_.count(name) && Screens_[name]) {
         Screens_[name]->Hide();
-        if (ActiveScreen_ == name) ActiveScreen_.clear();
+        ActiveScreens_.erase(name);
     }
 }
 
 void UIManager::Update(float /*deltaTime*/) {
-    // For demo: show combat log when any
-    if (!ActiveScreen_.empty()) {
-        Screens_[ActiveScreen_]->Show();
+    for (const auto& name : ActiveScreens_) {
+        auto it = Screens_.find(name);
+        if (it != Screens_.end()) {
+            it->second->Show();
+        }
     }
     
     // Input handling can be added here

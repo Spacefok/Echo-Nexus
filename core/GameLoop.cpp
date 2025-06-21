@@ -5,6 +5,7 @@
 #include "ai/DecisionEngine.h"
 #include "ui/UIManager.h"
 #include "ui/CombatLogScreen.h"
+#include "ui/StatusScreen.h"
 #include "core/GameWorld.h"
 #include <iostream>
 
@@ -18,11 +19,14 @@ void GameLoop::Run() {
     auto renderer = Locator_.Get<RenderEngine>();
     auto ui = Locator_.Get<UIManager>();
     auto log = Locator_.Get<CombatLogScreen>();
+    auto status = Locator_.Get<StatusScreen>();
+    ui->ShowScreen("CombatLog");
 
     bool running = true;
     while (running) {
         bool endTurn = false;
         while (!endTurn) {
+            status->Show();
             std::cout << "1) Attack  2) Heal  3) End Turn\n> ";
             int choice;
             if (!(std::cin >> choice)) {

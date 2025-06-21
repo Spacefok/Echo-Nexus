@@ -12,6 +12,7 @@
 #include "ai/DecisionEngine.h"
 #include "ui/UIManager.h"
 #include "ui/CombatLogScreen.h"
+#include "ui/StatusScreen.h"
 
 int main() {
     // Load configuration
@@ -58,6 +59,11 @@ int main() {
     auto combatLog = std::make_shared<CombatLogScreen>();
     uiManager->RegisterScreen(combatLog);
     serviceLocator.Register<CombatLogScreen>(combatLog);
+
+    // Экран статуса игрока
+    auto statusScreen = std::make_shared<StatusScreen>(serviceLocator);
+    uiManager->RegisterScreen(statusScreen);
+    serviceLocator.Register<StatusScreen>(statusScreen);
 
     // Procedural generators
     auto eventGenerator = std::make_shared<EventGenerator>(serviceLocator);

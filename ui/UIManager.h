@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 
 class ServiceLocator;
@@ -27,5 +28,5 @@ public:
 private:
     ServiceLocator& Locator_;
     std::unordered_map<std::string, std::shared_ptr<UIScreen>> Screens_;
-    std::string ActiveScreen_;
+    std::unordered_set<std::string> ActiveScreens_;
 };
