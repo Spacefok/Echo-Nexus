@@ -34,6 +34,12 @@ void Player::ApplyDamage(int amount) {
     CurrentBody_->SetHealth(std::max(newHp, 0));
 }
 
+void Player::Heal(int amount) {
+    int newHp = GetHealth() + amount;
+    if (newHp > GetMaxHealth()) newHp = GetMaxHealth();
+    CurrentBody_->SetHealth(newHp);
+}
+
 void Player::Rebirth(std::shared_ptr<CloneBody> newBody) {
     CurrentBody_ = newBody;
     BodyHistory_.push_back(newBody);

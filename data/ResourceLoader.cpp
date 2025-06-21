@@ -1,6 +1,8 @@
 #include "data/ResourceLoader.h"
 #include <fstream>
 #include <stdexcept>
+#include <cstdint>
+#include <iterator>
 
 ResourceLoader::ResourceLoader(const std::string& resourcePath)
     : ResourcePath_(resourcePath) {}
@@ -23,6 +25,7 @@ std::vector<uint8_t> ResourceLoader::LoadBinary(const std::string& fileName) con
         throw std::runtime_error("Cannot open binary resource: " + fullPath);
     }
 
-    std::vector<uint8_t> buffer(std::istreambuf_iterator<char>(input), {});
+    std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(input)),
+                               std::istreambuf_iterator<char>());
     return buffer;  // Return raw bytes
 }

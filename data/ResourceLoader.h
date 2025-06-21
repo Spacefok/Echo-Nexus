@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 // ResourceLoader loads text and binary assets from resource directory
 class ResourceLoader {

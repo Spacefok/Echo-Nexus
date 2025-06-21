@@ -25,6 +25,9 @@ public:
     // Apply damage to player
     void ApplyDamage(int amount);
 
+    // Restore health to player
+    void Heal(int amount);
+
     // Handle rebirth into new clone body
     void Rebirth(std::shared_ptr<CloneBody> newBody);
 

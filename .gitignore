@@ -32,7 +32,6 @@ a.out
 *.err
 *.gcda
 *.gcno
-core
 
 # IDE and editor files
 /.vscode/
