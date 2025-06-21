@@ -47,7 +47,11 @@ int main() {
 
     // Level generation
     LevelGenerator levelGenerator(serviceLocator);
-    levelGenerator.GenerateLevel(gameConfig.StartLevel);
+    int startLevel = saveManager->GetCurrentLevel();
+    if (startLevel == 0) {
+        startLevel = gameConfig.StartLevel;
+    }
+    levelGenerator.GenerateLevel(startLevel);
 
     // AI engine
     auto decisionEngine = std::make_shared<DecisionEngine>(serviceLocator);

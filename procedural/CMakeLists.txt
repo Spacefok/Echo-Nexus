@@ -17,4 +17,5 @@ target_link_libraries(proceduralLib PUBLIC
     entitiesLib
     dataLib
     coreLib
+    saveLib
 )

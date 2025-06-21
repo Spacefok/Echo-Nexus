@@ -12,6 +12,14 @@
 SaveManager::SaveManager(const std::string& filePath, ServiceLocator& locator)
     : FilePath_(filePath), Locator_(locator) {}
 
+void SaveManager::SetCurrentLevel(int level) {
+    State_.CurrentLevel = level;
+}
+
+int SaveManager::GetCurrentLevel() const {
+    return State_.CurrentLevel;
+}
+
 void SaveManager::Load() {
     std::ifstream input(FilePath_);
     if (!input.good()) return;  // no save yet
@@ -20,8 +28,19 @@ void SaveManager::Load() {
     input >> json;
 
     State_.CurrentLevel = json.value("currentLevel", 1);
-    State_.PlayerHealth = json.value("playerHealth", Locator_.Get<Player>()->GetHealth());
-    State_.PlayerVirus = json.value("playerVirus", Locator_.Get<Player>()->GetVirusLevel());
+    auto player = Locator_.Get<Player>();
+    State_.PlayerHealth = json.value("playerHealth", player->GetHealth());
+    State_.PlayerVirus = json.value("playerVirus", player->GetVirusLevel());
+
+    int healthDiff = State_.PlayerHealth - player->GetHealth();
+    if (healthDiff > 0) {
+        player->Heal(healthDiff);
+    } else if (healthDiff < 0) {
+        player->ApplyDamage(-healthDiff);
+    }
+    float virusDiff = State_.PlayerVirus - player->GetVirusLevel();
+    player->AddVirus(virusDiff);
+
     for (auto& id : json["unlockedFragments"]) {
         State_.UnlockedFragments.insert(id.get<std::string>());
     }
@@ -46,6 +65,7 @@ void SaveManager::Save() const {
     for (const auto& fragPtr : fragments) {
         ids.push_back(fragPtr->GetId());
     }
+    json["unlockedFragments"] = ids;
 
     std::ofstream output(FilePath_);
     if (!output.is_open()) {

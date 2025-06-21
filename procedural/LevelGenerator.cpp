@@ -3,12 +3,15 @@
 #include "core/GameWorld.h"
 #include "entities/Drone.h"
 #include "entities/Faction.h"
+#include "save/SaveManager.h"
 #include <nlohmann/json.hpp>
 
 LevelGenerator::LevelGenerator(ServiceLocator& locator)
     : Locator_(locator) {}
 
 void LevelGenerator::GenerateLevel(int levelId) {
+    // record current level in save manager
+    Locator_.Get<SaveManager>()->SetCurrentLevel(levelId);
     auto dataManager = Locator_.Get<DataManager>();
     auto data = dataManager->LoadData("level_" + std::to_string(levelId));
     nlohmann::json enemyStats;
