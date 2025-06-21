@@ -1,20 +1,20 @@
-#include "ServiceLocator.h"
-#include "DataManager.h"
-#include "ResourceLoader.h"
 #include "ConfigLoader.h"
-#include "GameWorld.h"
+#include "DataManager.h"
 #include "GameLoop.h"
-#include "NarrativeManager.h"
+#include "GameWorld.h"
 #include "LevelGenerator.h"
-#include "save/SaveManager.h"
+#include "NarrativeManager.h"
+#include "ResourceLoader.h"
+#include "ServiceLocator.h"
+#include "ai/DecisionEngine.h"
+#include "entities/CloneBody.h"
+#include "entities/Player.h"
 #include "procedural/EventGenerator.h"
 #include "procedural/StoryEventRunner.h"
-#include "ai/DecisionEngine.h"
-#include "entities/Player.h"
-#include "entities/CloneBody.h"
-#include "ui/UIManager.h"
+#include "save/SaveManager.h"
 #include "ui/CombatLogScreen.h"
 #include "ui/StatusScreen.h"
+#include "ui/UIManager.h"
 
 int main() {
     // Load configuration
@@ -44,10 +44,9 @@ int main() {
 
     // Player setup
     auto playerData = dataManager->loadData("player_stats");
-    auto playerBody = std::make_shared<CloneBody>(
-        playerData["maxHealth"].get<int>(),
-        playerData["virusRate"].get<float>(),
-        playerData["virusCarryover"].get<float>());
+    auto playerBody = std::make_shared<CloneBody>(playerData["maxHealth"].get<int>(),
+                                                  playerData["virusRate"].get<float>(),
+                                                  playerData["virusCarryover"].get<float>());
     auto player = std::make_shared<Player>(1, playerBody);
     player->setCombatStats(playerData["baseDamage"].get<float>(),
                            playerData["weaponMod"].get<float>(),
@@ -79,7 +78,6 @@ int main() {
     uiManager->registerScreen(combatLog);
     serviceLocator.registerService<CombatLogScreen>(combatLog);
 
-    // Экран статуса игрока
     auto statusScreen = std::make_shared<StatusScreen>(serviceLocator);
     uiManager->registerScreen(statusScreen);
     serviceLocator.registerService<StatusScreen>(statusScreen);

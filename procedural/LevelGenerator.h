@@ -1,16 +1,19 @@
-#pragma once
+#ifndef PROCEDURAL_LEVELGENERATOR_H
+#define PROCEDURAL_LEVELGENERATOR_H
 
 #include <string>
+
 #include "ServiceLocator.h"
 
 // Generates levels by spawning entities based on data definitions
 class LevelGenerator {
-public:
+   public:
     explicit LevelGenerator(ServiceLocator& locator);
 
     // Generate level with given ID or index
     void generateLevel(int levelId);
 
-private:
+   private:
     ServiceLocator& locator_;
 };
+#endif

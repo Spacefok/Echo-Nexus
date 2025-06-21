@@ -1,8 +1,9 @@
-#pragma once
+#ifndef ENTITIES_CLONEBODY_H
+#define ENTITIES_CLONEBODY_H
 
 // Represents a cloned body template with health and virus characteristics
 class CloneBody {
-public:
+   public:
     // Construct with given stats
     CloneBody(int maxHealth, float virusRate, float virusCarryover);
 
@@ -15,9 +16,10 @@ public:
     float getVirusRate() const;
     float getVirusCarryover() const;
 
-private:
+   private:
     int health_;
     int maxHealth_;
     float virusRate_;
     float virusCarryover_;
 };
+#endif

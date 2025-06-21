@@ -1,9 +1,10 @@
 #include "ui/StatusScreen.h"
-#include "entities/Player.h"
+
 #include <iostream>
 
-StatusScreen::StatusScreen(ServiceLocator& locator)
-    : locator_(locator), visible_(false) {}
+#include "entities/Player.h"
+
+StatusScreen::StatusScreen(ServiceLocator& locator) : locator_(locator), visible_(false) {}
 
 void StatusScreen::show() {
     visible_ = true;
@@ -12,10 +13,6 @@ void StatusScreen::show() {
               << "  Virus: " << player->getVirusLevel() << std::endl;
 }
 
-void StatusScreen::hide() {
-    visible_ = false;
-}
+void StatusScreen::hide() { visible_ = false; }
 
-std::string StatusScreen::getName() const {
-    return "Status";
-}
+std::string StatusScreen::getName() const { return "Status"; }

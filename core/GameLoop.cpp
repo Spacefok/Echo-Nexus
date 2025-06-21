@@ -1,17 +1,18 @@
 #include "core/GameLoop.h"
-#include "entities/Player.h"
-#include "entities/Drone.h"
-#include "render/RenderEngine.h"
-#include "ai/DecisionEngine.h"
-#include "ui/UIManager.h"
-#include "ui/CombatLogScreen.h"
-#include "ui/StatusScreen.h"
-#include "core/GameWorld.h"
-#include "core/EventSystem.h"
+
 #include <iostream>
 
-GameLoop::GameLoop(ServiceLocator& locator)
-    : locator_(locator) {}
+#include "ai/DecisionEngine.h"
+#include "core/EventSystem.h"
+#include "core/GameWorld.h"
+#include "entities/Drone.h"
+#include "entities/Player.h"
+#include "render/RenderEngine.h"
+#include "ui/CombatLogScreen.h"
+#include "ui/StatusScreen.h"
+#include "ui/UIManager.h"
+
+GameLoop::GameLoop(ServiceLocator& locator) : locator_(locator) {}
 
 void GameLoop::run() {
     auto world = locator_.get<GameWorld>();
@@ -32,7 +33,7 @@ void GameLoop::run() {
             std::cout << "1) Attack  2) Heal  3) End Turn\n> ";
             int choice;
             if (!(std::cin >> choice)) {
-                return; // input error
+                return;  // input error
             }
             switch (choice) {
                 case 1: {
@@ -41,13 +42,15 @@ void GameLoop::run() {
                     for (auto& e : world->getEntities()) {
                         auto drone = std::dynamic_pointer_cast<Drone>(e);
                         if (drone && drone->getHealth() > 0) {
-                            int damage = static_cast<int>(player->getBaseDamage() *
+                            int damage = static_cast<int>(
+                                player->getBaseDamage() *
                                 (1 + player->getWeaponMod() - drone->getArmorClass()));
                             drone->setHealth(drone->getHealth() - damage);
                             log->addEntry("Player hits Drone " + std::to_string(drone->getId()) +
-                                " for " + std::to_string(damage) + " damage");
+                                          " for " + std::to_string(damage) + " damage");
                             if (drone->getHealth() <= 0) {
-                                log->addEntry("Drone " + std::to_string(drone->getId()) + " destroyed");
+                                log->addEntry("Drone " + std::to_string(drone->getId()) +
+                                              " destroyed");
                             }
                             hit = true;
                             break;
@@ -96,8 +99,7 @@ void GameLoop::run() {
                     cubeEventSent = true;
                 }
             }
-            if (anyDroneAlive)
-                break;
+            if (anyDroneAlive) break;
         }
         if (!anyDroneAlive) {
             std::cout << "All enemies defeated!\n";

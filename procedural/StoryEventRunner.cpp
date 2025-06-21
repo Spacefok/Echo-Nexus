@@ -1,10 +1,11 @@
 #include "procedural/StoryEventRunner.h"
-#include "narrative/NarrativeManager.h"
-#include "core/EventSystem.h"
+
 #include <iostream>
 
-StoryEventRunner::StoryEventRunner(ServiceLocator& locator)
-    : locator_(locator) {}
+#include "core/EventSystem.h"
+#include "narrative/NarrativeManager.h"
+
+StoryEventRunner::StoryEventRunner(ServiceLocator& locator) : locator_(locator) {}
 
 void StoryEventRunner::initialize() {
     auto events = locator_.get<EventSystem>();

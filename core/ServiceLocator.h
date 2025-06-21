@@ -1,13 +1,14 @@
-#pragma once
+#ifndef CORE_SERVICELOCATOR_H
+#define CORE_SERVICELOCATOR_H
 #include <memory>
+#include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
-#include <stdexcept>
 
 // Simple service locator for managing shared services
 class ServiceLocator {
-public:
-    template<typename T>
+   public:
+    template <typename T>
     void registerService(std::shared_ptr<T> service) {
         auto type = std::type_index(typeid(T));
         if (services_.count(type)) {
@@ -16,7 +17,7 @@ public:
         services_[type] = service;
     }
 
-    template<typename T>
+    template <typename T>
     std::shared_ptr<T> get() {
         auto type = std::type_index(typeid(T));
         auto it = services_.find(type);
@@ -26,6 +27,7 @@ public:
         return std::static_pointer_cast<T>(it->second);
     }
 
-private:
+   private:
     std::unordered_map<std::type_index, std::shared_ptr<void>> services_;
 };
+#endif

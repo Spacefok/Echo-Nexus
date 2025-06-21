@@ -1,12 +1,13 @@
-#pragma once
+#ifndef DATA_RESOURCELOADER_H
+#define DATA_RESOURCELOADER_H
 
+#include <cstdint>
 #include <string>
 #include <vector>
-#include <cstdint>
 
 // ResourceLoader loads text and binary assets from resource directory
 class ResourceLoader {
-public:
+   public:
     explicit ResourceLoader(const std::string& resourcePath);
 
     // Load text file content by filename (without extension)
@@ -15,6 +16,7 @@ public:
     // Load binary file content by filename (without extension)
     std::vector<uint8_t> loadBinary(const std::string& fileName) const;
 
-private:
+   private:
     std::string resourcePath_;
 };
+#endif

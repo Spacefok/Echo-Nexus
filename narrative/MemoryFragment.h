@@ -1,10 +1,12 @@
-#pragma once
-#include "narrative/MemoryFragment.h"
+#ifndef NARRATIVE_MEMORYFRAGMENT_H
+#define NARRATIVE_MEMORYFRAGMENT_H
 #include <string>
+
+#include "narrative/MemoryFragment.h"
 
 // Represents a single piece of recovered memory in the narrative system
 class MemoryFragment {
-public:
+   public:
     // Constructor: set unique identifier and text content
     MemoryFragment(const std::string& id, const std::string& content);
 
@@ -20,8 +22,9 @@ public:
     // Mark this fragment as unlocked
     void unlock();
 
-private:
-    std::string id_;        // Unique key for lookup
-    std::string content_;   // The narrative text
-    bool unlocked_;         // Reveal state
+   private:
+    std::string id_;       // Unique key for lookup
+    std::string content_;  // The narrative text
+    bool unlocked_;        // Reveal state
 };
+#endif

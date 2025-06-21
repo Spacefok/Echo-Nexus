@@ -11,9 +11,7 @@ std::shared_ptr<Entity> GameWorld::getEntity(std::size_t id) {
     return nullptr;
 }
 
-std::vector<std::shared_ptr<Entity>> GameWorld::getEntities() const {
-    return entities_;
-}
+std::vector<std::shared_ptr<Entity>> GameWorld::getEntities() const { return entities_; }
 
 void GameWorld::update(float deltaTime) {
     for (auto& e : entities_) {

@@ -1,10 +1,11 @@
-#include "ServiceLocator.h"
 #include <cassert>
 #include <iostream>
 #include <memory>
 
+#include "ServiceLocator.h"
+
 // Dummy service for testing
-template<typename T>
+template <typename T>
 struct DummyService {};
 
 int main() {

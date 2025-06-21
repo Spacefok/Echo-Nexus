@@ -1,10 +1,12 @@
-#pragma once
-#include "core/ServiceLocator.h"  
-#include "core/EventSystem.h"
+#ifndef NARRATIVE_NARRATIVEMANAGER_H
+#define NARRATIVE_NARRATIVEMANAGER_H
+#include <memory>
 #include <string>
 #include <unordered_map>
-#include <memory>
 #include <vector>
+
+#include "core/EventSystem.h"
+#include "core/ServiceLocator.h"
 
 class ServiceLocator;
 class MemoryFragment;
@@ -12,7 +14,7 @@ class Quest;
 
 // Manages narrative fragments and quest progression
 class NarrativeManager {
-public:
+   public:
     // Construct with access to all services
     explicit NarrativeManager(ServiceLocator& locator);
 
@@ -34,8 +36,9 @@ public:
     // Get unlocked fragments
     std::vector<std::shared_ptr<MemoryFragment>> getUnlockedFragments() const;
 
-private:
+   private:
     ServiceLocator& Locator_;
     std::unordered_map<std::string, std::shared_ptr<MemoryFragment>> Fragments_;
     std::unordered_map<std::string, std::shared_ptr<Quest>> Quests_;
 };
+#endif

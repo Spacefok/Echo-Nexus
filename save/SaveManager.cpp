@@ -1,24 +1,22 @@
 #include "save/SaveManager.h"
-#include "config/ConfigLoader.h"
-#include "data/DataManager.h"
-#include "core/EventSystem.h"
-#include "entities/Player.h"
-#include "narrative/MemoryFragment.h"
-#include "narrative/NarrativeManager.h" // Add this include to define NarrativeManager
-#include "core/GameWorld.h"
+
 #include <fstream>
 #include <stdexcept>
+
+#include "config/ConfigLoader.h"
+#include "core/EventSystem.h"
+#include "core/GameWorld.h"
+#include "data/DataManager.h"
+#include "entities/Player.h"
+#include "narrative/MemoryFragment.h"
+#include "narrative/NarrativeManager.h"  // Add this include to define NarrativeManager
 
 SaveManager::SaveManager(const std::string& filePath, ServiceLocator& locator)
     : filePath_(filePath), locator_(locator) {}
 
-void SaveManager::setCurrentLevel(int level) {
-    state_.currentLevel = level;
-}
+void SaveManager::setCurrentLevel(int level) { state_.currentLevel = level; }
 
-int SaveManager::getCurrentLevel() const {
-    return state_.currentLevel;
-}
+int SaveManager::getCurrentLevel() const { return state_.currentLevel; }
 
 void SaveManager::load() {
     std::ifstream input(filePath_);

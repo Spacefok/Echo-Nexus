@@ -1,18 +1,19 @@
-#pragma once
+#ifndef UI_STATUSSCREEN_H
+#define UI_STATUSSCREEN_H
 
-#include "ui/UIScreen.h"
 #include "ServiceLocator.h"
+#include "ui/UIScreen.h"
 class Player;
 
-// Экран статуса игрока: здоровье и уровень вируса
 class StatusScreen : public UIScreen {
-public:
+   public:
     explicit StatusScreen(ServiceLocator& locator);
     void show() override;
     void hide() override;
     std::string getName() const override;
 
-private:
+   private:
     ServiceLocator& locator_;
     bool visible_;
 };
+#endif

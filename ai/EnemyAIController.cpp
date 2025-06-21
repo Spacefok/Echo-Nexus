@@ -1,12 +1,13 @@
-#include "ServiceLocator.h" // Ensure ServiceLocator is included  
-#include "core/GameWorld.h"  
-#include "entities/Drone.h"  
-#include "ai/DroneBehavior.h"  
-#include <memory>  
 #include "ai/EnemyAIController.h"
 
-EnemyAIController::EnemyAIController(ServiceLocator& locator)
-    : locator_(locator) {}
+#include <memory>
+
+#include "ServiceLocator.h"  // Ensure ServiceLocator is included
+#include "ai/DroneBehavior.h"
+#include "core/GameWorld.h"
+#include "entities/Drone.h"
+
+EnemyAIController::EnemyAIController(ServiceLocator& locator) : locator_(locator) {}
 
 void EnemyAIController::update(float deltaTime) {
     auto world = locator_.get<GameWorld>();

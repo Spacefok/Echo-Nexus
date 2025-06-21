@@ -1,17 +1,19 @@
-#pragma once
+#ifndef PROCEDURAL_STORYEVENTRUNNER_H
+#define PROCEDURAL_STORYEVENTRUNNER_H
 
 #include <string>
+
 #include "ServiceLocator.h"
 
 // Runs narrative story events based on triggers
 class StoryEventRunner {
-public:
+   public:
     explicit StoryEventRunner(ServiceLocator& locator);
 
     // Start listening to events and trigger story
     void initialize();
 
-private:
+   private:
     ServiceLocator& locator_;
 
     // Handle a periodic event
@@ -19,3 +21,4 @@ private:
 
     void onCubeDefeated();
 };
+#endif

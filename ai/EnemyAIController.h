@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AI_ENEMYAICONTROLLER_H
+#define AI_ENEMYAICONTROLLER_H
 
 #include <memory>
 
@@ -6,12 +7,13 @@ class ServiceLocator;
 
 // Manages AI behavior for all enemy entities
 class EnemyAIController {
-public:
+   public:
     explicit EnemyAIController(ServiceLocator& locator);
 
     // Update all enemies each tick
     void update(float deltaTime);
 
-private:
+   private:
     ServiceLocator& locator_;
 };
+#endif

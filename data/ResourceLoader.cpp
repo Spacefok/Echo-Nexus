@@ -1,11 +1,11 @@
 #include "data/ResourceLoader.h"
-#include <fstream>
-#include <stdexcept>
-#include <cstdint>
-#include <iterator>
 
-ResourceLoader::ResourceLoader(const std::string& resourcePath)
-    : resourcePath_(resourcePath) {}
+#include <cstdint>
+#include <fstream>
+#include <iterator>
+#include <stdexcept>
+
+ResourceLoader::ResourceLoader(const std::string& resourcePath) : resourcePath_(resourcePath) {}
 
 std::string ResourceLoader::loadText(const std::string& fileName) const {
     std::string fullPath = resourcePath_ + "/" + fileName + ".txt";
@@ -26,6 +26,6 @@ std::vector<uint8_t> ResourceLoader::loadBinary(const std::string& fileName) con
     }
 
     std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(input)),
-                               std::istreambuf_iterator<char>());
+                                std::istreambuf_iterator<char>());
     return buffer;  // Return raw bytes
 }

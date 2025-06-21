@@ -1,15 +1,17 @@
-#pragma once
+#ifndef ENTITIES_DRONE_H
+#define ENTITIES_DRONE_H
+
+#include <memory>
 
 #include "entities/Entity.h"
 #include "entities/Faction.h"
-#include <memory>
 
 // Drone entity controlled by AI systems
 class Drone : public Entity {
-public:
+   public:
     // Construct with id, faction, health and speed
-    Drone(std::size_t id, std::shared_ptr<Faction> faction, const std::string& type,
-          int maxHealth, float speed, float damage, float armorClass);
+    Drone(std::size_t id, std::shared_ptr<Faction> faction, const std::string& type, int maxHealth,
+          float speed, float damage, float armorClass);
 
     // Update called by GameWorld each tick
     void update(float deltaTime) override;
@@ -29,7 +31,7 @@ public:
     float getArmorClass() const;
     const std::string& getType() const;
 
-private:
+   private:
     int health_;
     int maxHealth_;
     float speed_;
@@ -38,3 +40,4 @@ private:
     float damage_;
     float armorClass_;
 };
+#endif

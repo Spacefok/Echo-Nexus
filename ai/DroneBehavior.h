@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AI_DRONEBEHAVIOR_H
+#define AI_DRONEBEHAVIOR_H
 
 #include <memory>
 
@@ -7,12 +8,13 @@ class Drone;
 
 // Encapsulates behavior logic for drone entities
 class DroneBehavior {
-public:
+   public:
     explicit DroneBehavior(ServiceLocator& locator);
 
     // Execute behavior for a given drone each tick
     void execute(std::shared_ptr<Drone> drone, float deltaTime);
 
-private:
+   private:
     ServiceLocator& locator_;
 };
+#endif

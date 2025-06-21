@@ -1,14 +1,15 @@
+#include <cassert>
+#include <cstdio>
+
 #include "ServiceLocator.h"
 #include "core/EventSystem.h"
 #include "core/GameWorld.h"
-#include "entities/Player.h"
-#include "entities/CloneBody.h"
 #include "data/DataManager.h"
-#include "narrative/NarrativeManager.h"
+#include "entities/CloneBody.h"
+#include "entities/Player.h"
 #include "narrative/MemoryFragment.h"
+#include "narrative/NarrativeManager.h"
 #include "save/SaveManager.h"
-#include <cassert>
-#include <cstdio>
 
 int main() {
     ServiceLocator locator;
@@ -27,7 +28,7 @@ int main() {
     auto saver = std::make_shared<SaveManager>("test_save.json", locator);
     locator.registerService<SaveManager>(saver);
     saver->setCurrentLevel(2);
-    player->applyDamage(20); // 80 HP
+    player->applyDamage(20);  // 80 HP
     player->addVirus(15.0f);
     narrative->unlockFragment("secret_log");
     saver->save();
@@ -56,7 +57,10 @@ int main() {
     auto unlocked = narrative2->getUnlockedFragments();
     bool found = false;
     for (auto& f : unlocked) {
-        if (f->getId() == "secret_log") { found = true; break; }
+        if (f->getId() == "secret_log") {
+            found = true;
+            break;
+        }
     }
     assert(found && "Fragment not loaded");
 

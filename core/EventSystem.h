@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CORE_EVENTSYSTEM_H
+#define CORE_EVENTSYSTEM_H
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -6,7 +7,7 @@
 
 // Basic pub-sub event system
 class EventSystem {
-public:
+   public:
     using Callback = std::function<void()>;
 
     // Subscribe a callback to an event name
@@ -15,6 +16,7 @@ public:
     // Emit event to all subscribers
     void emit(const std::string& eventName);
 
-private:
+   private:
     std::unordered_map<std::string, std::vector<Callback>> subscribers_;
 };
+#endif

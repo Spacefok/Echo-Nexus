@@ -1,19 +1,20 @@
-#pragma once
+#ifndef ENTITIES_PLAYER_H
+#define ENTITIES_PLAYER_H
 
-#include "entities/Entity.h"
-#include "entities/CloneBody.h"
-#include "entities/Trait.h"
 #include <memory>
 #include <vector>
 
+#include "entities/CloneBody.h"
+#include "entities/Entity.h"
+#include "entities/Trait.h"
+
 // Represents the player, holding current body, virus level, and history of bodies
 class Player : public Entity {
-public:
+   public:
     // Initialize with unique ID and initial clone body
     Player(std::size_t id, std::shared_ptr<CloneBody> initialBody);
 
     void setCombatStats(float baseDamage, float weaponMod, float armorClass);
-
 
     // Update called each tick (e.g., handle virus effects)
     void update(float deltaTime) override;
@@ -41,7 +42,7 @@ public:
     float getBaseDamage() const;
     float getWeaponMod() const;
 
-private:
+   private:
     // Currently active body
     std::shared_ptr<CloneBody> currentBody_;
     float virusLevel_;
@@ -51,3 +52,4 @@ private:
     float weaponMod_ = 0.f;
     float armorClass_ = 0.f;
 };
+#endif

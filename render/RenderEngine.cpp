@@ -1,8 +1,10 @@
 #include "render/RenderEngine.h"
+
+#include <cstdlib>
+
+#include "core/GameWorld.h"
 #include "render/AsciiMapRenderer.h"
 #include "render/HUDRenderer.h"
-#include "core/GameWorld.h"
-#include <cstdlib>
 
 RenderEngine::RenderEngine(ServiceLocator& locator)
     : locator_(locator),

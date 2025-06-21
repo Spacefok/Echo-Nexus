@@ -1,14 +1,16 @@
-#pragma once
-#include "ServiceLocator.h"
+#ifndef SAVE_SAVEMANAGER_H
+#define SAVE_SAVEMANAGER_H
+#include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_set>
-#include <nlohmann/json.hpp>
+
+#include "ServiceLocator.h"
 
 class ServiceLocator;
 
 // Manages game save and load functionality
 class SaveManager {
-public:
+   public:
     explicit SaveManager(const std::string& filePath, ServiceLocator& locator);
 
     // Load save data from disk
@@ -21,10 +23,10 @@ public:
     void setCurrentLevel(int level);
     int getCurrentLevel() const;
 
-private:
+   private:
     std::string filePath_;
     ServiceLocator& locator_;
-    
+
     // The state being saved
     struct SaveState {
         int currentLevel = 0;
@@ -33,3 +35,4 @@ private:
         std::unordered_set<std::string> unlockedFragments;
     } state_;
 };
+#endif

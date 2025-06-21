@@ -1,8 +1,8 @@
 #include "procedural/EventGenerator.h"
+
 #include "core/EventSystem.h"
 
-EventGenerator::EventGenerator(ServiceLocator& locator)
-    : locator_(locator), timer_(0.0f) {}
+EventGenerator::EventGenerator(ServiceLocator& locator) : locator_(locator), timer_(0.0f) {}
 
 void EventGenerator::update(float deltaTime) {
     timer_ += deltaTime;

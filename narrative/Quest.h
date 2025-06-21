@@ -1,16 +1,18 @@
-#pragma once
+#ifndef NARRATIVE_QUEST_H
+#define NARRATIVE_QUEST_H
 
 #include <string>
 
 // Represents a quest in the narrative system
 class Quest {
-public:
+   public:
     explicit Quest(const std::string& questId);
     std::string getId() const;
     bool isCompleted() const;
     void complete();
 
-private:
+   private:
     std::string questId_;
     bool completed_;
 };
+#endif

@@ -1,4 +1,5 @@
 #include "entities/Player.h"
+
 #include <algorithm>
 
 Player::Player(std::size_t id, std::shared_ptr<CloneBody> initialBody)
@@ -19,21 +20,13 @@ void Player::update(float deltaTime) {
     if (virusLevel_ > 100.0f) virusLevel_ = 100.0f;
 }
 
-int Player::getHealth() const {
-    return currentBody_->getHealth();
-}
+int Player::getHealth() const { return currentBody_->getHealth(); }
 
-int Player::getMaxHealth() const {
-    return currentBody_->getMaxHealth();
-}
+int Player::getMaxHealth() const { return currentBody_->getMaxHealth(); }
 
-float Player::getVirusLevel() const {
-    return virusLevel_;
-}
+float Player::getVirusLevel() const { return virusLevel_; }
 
-void Player::addVirus(float amount) {
-    virusLevel_ += amount;
-}
+void Player::addVirus(float amount) { virusLevel_ += amount; }
 
 void Player::applyDamage(int amount) {
     int newHp = getHealth() - amount;
@@ -52,9 +45,7 @@ void Player::rebirth(std::shared_ptr<CloneBody> newBody) {
     virusLevel_ += currentBody_->getVirusCarryover();
 }
 
-void Player::addTrait(std::shared_ptr<Trait> trait) {
-    traits_.push_back(trait);
-}
+void Player::addTrait(std::shared_ptr<Trait> trait) { traits_.push_back(trait); }
 
 float Player::getArmorClass() const { return armorClass_; }
 float Player::getBaseDamage() const { return baseDamage_; }

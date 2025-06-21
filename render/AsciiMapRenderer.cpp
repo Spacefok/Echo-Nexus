@@ -1,8 +1,10 @@
 #include "render/AsciiMapRenderer.h"
-#include "entities/Entity.h"
+
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "entities/Entity.h"
 
 AsciiMapRenderer::AsciiMapRenderer(ServiceLocator& locator)
     : locator_(locator), mapWidth_(80), mapHeight_(24) {}

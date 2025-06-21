@@ -1,9 +1,10 @@
 #include "ui/UIManager.h"
-#include "ui/UIScreen.h"
+
 #include <iostream>
 
-UIManager::UIManager(ServiceLocator& locator)
-    : locator_(locator) {}
+#include "ui/UIScreen.h"
+
+UIManager::UIManager(ServiceLocator& locator) : locator_(locator) {}
 
 void UIManager::registerScreen(std::shared_ptr<UIScreen> screen) {
     screens_[screen->getName()] = screen;
@@ -30,6 +31,6 @@ void UIManager::update(float /*deltaTime*/) {
             it->second->show();
         }
     }
-    
+
     // Input handling can be added here
 }

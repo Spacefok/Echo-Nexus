@@ -1,17 +1,15 @@
 #include "narrative/NarrativeManager.h"
-#include "narrative/MemoryFragment.h"
-#include "narrative/Quest.h"
-#include "data/DataManager.h"
+
 #include <nlohmann/json.hpp>
 
-NarrativeManager::NarrativeManager(ServiceLocator& locator)
-    : Locator_(locator)
-{
-    // Подпишемся на событие первого столкновения с дроном
-    Locator_.get<EventSystem>()->subscribe(
-        "EncounteredDrone",
-        [this]() { unlockFragment("first_encounter"); }
-    );
+#include "data/DataManager.h"
+#include "narrative/MemoryFragment.h"
+#include "narrative/Quest.h"
+
+NarrativeManager::NarrativeManager(ServiceLocator& locator) : Locator_(locator) {
+    // Subscribe to the first encounter with a drone
+    Locator_.get<EventSystem>()->subscribe("EncounteredDrone",
+                                           [this]() { unlockFragment("first_encounter"); });
 }
 
 void NarrativeManager::addQuest(const std::string& id) {
@@ -33,9 +31,7 @@ std::vector<std::shared_ptr<Quest>> NarrativeManager::getQuests() const {
     return quests;
 }
 
-void NarrativeManager::startStory(const std::string& startPoint) {
-    unlockFragment(startPoint);
-}
+void NarrativeManager::startStory(const std::string& startPoint) { unlockFragment(startPoint); }
 
 void NarrativeManager::loadFragments(const std::string& fileName) {
     auto jsonData = Locator_.get<DataManager>()->loadData(fileName);
